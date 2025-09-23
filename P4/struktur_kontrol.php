@@ -72,5 +72,14 @@ foreach($nilai as $index => $n){
 }
 $rata = $total / $hitung;
 echo "Total nilai setelah buang 2 tertinggi & 2 terendah: $total <br>";
+echo "<br>";
 
+$hargaBarang = 120000;
+$bayar = 0;
+if($hargaBarang > 100000){
+    $bayar = $hargaBarang - ($hargaBarang * 0.2);
+} else {
+    $bayar = $hargaBarang;
+}
+echo "Total yang harus dibayar adalah Rp. $bayar";
 ?>

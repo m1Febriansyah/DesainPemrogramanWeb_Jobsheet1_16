@@ -46,4 +46,16 @@ echo "Hasil NOT $a = ";
 var_dump($hasilNotA); echo "<br>";
 echo "Hasil NOT $b = ";
 var_dump($hasilNotB); echo "<br>";
+echo "<br>";
+$a += $b; 
+$a -= $b;
+$a *= $b;
+$a /= $b;
+$a %= $b;
+echo "Hasil a += b adalah $a <br>";
+echo "Hasil a -= b adalah $a <br>";
+echo "Hasil a *= b adalah $a <br>";
+echo "Hasil a /= b adalah $a <br>";
+echo "Hasil a %= b adalah $a <br>";
+echo "<br>";
 ?>

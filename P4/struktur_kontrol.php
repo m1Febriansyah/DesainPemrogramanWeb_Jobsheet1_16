@@ -51,4 +51,26 @@ foreach ($nilaiSiswa as $nilai) {
     } 
     echo "Nilai $nilai: (Lulus) <br>";
 }
+echo "<br>";
+$nilai = [85, 92, 78, 64, 90, 75, 88, 79, 70, 96];
+for($i = 0; $i < count($nilai); $i++){
+    for($j = $i+1; $j < count($nilai); $j++){
+        if($nilai[$i] > $nilai[$j]){
+            $temp = $nilai[$i];
+            $nilai[$i] = $nilai[$j];
+            $nilai[$j] = $temp;
+        }
+    }
+}
+$total = 0;
+$hitung = 0;
+foreach($nilai as $index => $n){
+    if($index >= 2 && $index < count($nilai) - 2){ 
+        $total += $n;
+        $hitung++;
+    }
+}
+$rata = $total / $hitung;
+echo "Total nilai setelah buang 2 tertinggi & 2 terendah: $total <br>";
+
 ?>

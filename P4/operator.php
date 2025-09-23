@@ -58,4 +58,11 @@ echo "Hasil a *= b adalah $a <br>";
 echo "Hasil a /= b adalah $a <br>";
 echo "Hasil a %= b adalah $a <br>";
 echo "<br>";
+$hasilIdentik = $a === $b;
+$hasilTidakIdentik = $a !== $b;
+echo "Hasil Identik $a === $b = ";
+var_dump($hasilIdentik); echo "<br>";
+echo "Hasil Tidak Identik $a !== $b = ";
+var_dump($hasilTidakIdentik); echo "<br>";
+echo "<br>";
 ?>

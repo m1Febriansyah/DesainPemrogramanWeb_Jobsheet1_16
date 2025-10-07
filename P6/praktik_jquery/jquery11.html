@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>jQuery Set Content</title>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            // Tombol 1: Set Text (Mengganti konten dengan teks murni)
+            $("#btn1").click(function() {
+                $("#test1").text("<b>Hello World!</b>");
+            });
+
+            // Tombol 2: Set HTML (Mengganti konten, memproses tag HTML)
+            $("#btn2").click(function() {
+                $("#test2").html("<b>Hello World!</b>");
+            });
+
+            // Tombol 3: Set Value (Mengganti nilai dari elemen input)
+            $("#btn3").click(function() {
+                $("#test3").val("Polinema");
+            });
+        });
+    </script>
+</head>
+<body>
+
+    <p id="test1">This is the first paragraph.</p>
+    <p id="test2">This is <b>another</b> paragraph.</p>
+
+    <p>Your Name: <input type="text" id="test3"></p>
+
+    <button id="btn1">Set Text</button>
+    <button id="btn2">Set HTML</button>
+    <button id="btn3">Set Value</button>
+
+</body>
+</html>

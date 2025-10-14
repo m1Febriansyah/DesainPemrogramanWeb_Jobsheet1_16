@@ -5,4 +5,9 @@ if (empty($myarrat)) {
 } else {
     echo "Array terdefinisi tidak kosong";
 }
+if (empty($nonExistentvar)) {
+    echo "Variabel tidak terdefinisi atau kosong";
+} else {
+    echo "Variabel terdefinisi tidak kosong";
+}
 ?>

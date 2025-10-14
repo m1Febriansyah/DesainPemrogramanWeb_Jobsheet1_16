@@ -36,4 +36,14 @@ if (preg_match_all($pattern, $text, $matches)) {
 } else {
     echo "Tidak ada yang cocok.";
 }
+echo "<br>";
+$pattern = '/go{1,3}d/'; 
+$text = 'god is good and gooood';
+echo "Pola (Pattern): " . $pattern . "\n";
+echo "Teks (Text): " . $text . "\n";
+if (preg_match($pattern, $text, $matches)) {
+    echo "Hasil Cocokkan: " . $matches[0] . "\n";
+} else {
+    echo "Tidak ada yang cocok." . "\n";
+}
 ?>

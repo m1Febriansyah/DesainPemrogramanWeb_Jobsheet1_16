@@ -29,6 +29,10 @@
         <input type="text" id="email" name="email">
         <span id="email-error" class="error"></span><br><br>
 
+        <label for="password">Password (Min. 8 Karakter):</label>
+        <input type="password" id="password" name="password">
+        <span id="password-error" class="error"></span><br><br>
+
         <input type="submit" value="Submit">
     </form>
     
@@ -40,15 +44,14 @@
     $(document).ready(function() {
         $("#myForm").submit(function(event) {
             
-            // 1. Mencegah pengiriman form standar
             event.preventDefault(); 
             
-            // 2. Validasi Sisi Klien (jQuery)
+            // 1. Validasi Sisi Klien (jQuery)
             var nama = $("#nama").val().trim();
             var email = $("#email").val().trim();
+            var password = $("#password").val(); // Ambil nilai password
             var valid = true;
             
-            // Regex dasar untuk format email
             var emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/; 
 
             // Validasi Nama
@@ -70,19 +73,28 @@
                 $("#email-error").text("");
             }
 
-            // 3. Jika validasi Klien berhasil, kirim dengan AJAX
+            // Validasi Password (BARU: Min. 8 Karakter)
+            if (password === "") {
+                $("#password-error").text("Password harus diisi.");
+                valid = false;
+            } else if (password.length < 8) {
+                $("#password-error").text("Password minimal 8 karakter.");
+                valid = false;
+            } else {
+                $("#password-error").text("");
+            }
+
+            // 2. Kirim dengan AJAX jika validasi Klien berhasil
             if (valid) {
-                
-                // Kumpulkan data formulir
                 var formData = $("#myForm").serialize();
                 
-                // Kirim data menggunakan AJAX
+                $("#hasil-server").html("Sedang memproses..."); // Umpan balik
+
                 $.ajax({
-                    url: "<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>", // Kirim ke file ini sendiri
+                    url: "<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>",
                     type: "POST",
                     data: formData,
                     success: function(response) {
-                        // Tampilkan hasil dari PHP di div hasil-server
                         $("#hasil-server").html(response);
                     },
                     error: function() {
@@ -97,28 +109,38 @@
 </html>
 
 <?php
-// Blok PHP ini hanya akan dijalankan saat dipanggil oleh AJAX (POST request)
+// Blok PHP (Validasi Sisi Server)
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     
-    // Untuk menghindari output HTML/SCRIPT di AJAX
+    // Header penting untuk AJAX
     header('Content-Type: text/html'); 
     
+    // Ambil dan bersihkan data
     $nama = trim(htmlspecialchars($_POST['nama'] ?? '', ENT_QUOTES, 'UTF-8'));
     $email = trim(htmlspecialchars($_POST['email'] ?? '', ENT_QUOTES, 'UTF-8'));
+    $password = $_POST['password'] ?? ''; // Ambil password mentah
     $errors = array();
 
-    // Validasi Nama (Server)
-    if (empty($nama)) {
-        $errors[] = "Nama harus diisi.";
-    }
-
-    // Validasi Email (Server)
-    // Walaupun sudah divalidasi JS, ini penting untuk keamanan
-    if (empty($email)) {
+    // ------------------------------------------------
+    // Validasi Nama & Email (Seperti sebelumnya)
+    // ------------------------------------------------
+    if (empty($nama)) { $errors[] = "Nama harus diisi."; }
+    if (empty($email)) { 
         $errors[] = "Email harus diisi.";
     } elseif (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
         $errors[] = "Format email tidak valid.";
     }
+
+    // ------------------------------------------------
+    // Validasi Password (BARU: Sisi Server)
+    // ------------------------------------------------
+    if (empty($password)) {
+        $errors[] = "Password harus diisi.";
+    } elseif (strlen($password) < 8) {
+        $errors[] = "Password minimal 8 karakter.";
+    }
+    // CATATAN: Password TIDAK perlu di-htmlspecialchars() di sini,
+    // karena tujuannya adalah untuk di-hash (misalnya dengan password_hash())
 
     // Output Hasil Validasi Server
     if (!empty($errors)) {
@@ -127,13 +149,17 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             echo "<span class='error'>" . $error . "</span><br>";
         }
     } else {
-        // Data bersih, siap diproses (simpan ke DB, kirim email, dll.)
+        // Data bersih, siap diproses. 
+        // Lakukan hashing password di sini sebelum disimpan ke database!
+        
+        // Simulasikan hasil:
         echo "✅ **Data Berhasil Divalidasi dan Diproses Server!**<br>";
         echo "Nama: " . $nama . "<br>";
-        echo "Email: " . $email;
+        echo "Email: " . $email . "<br>";
+        echo "Password: (OK, siap di-hash)";
     }
     
-    // Hentikan eksekusi script agar tidak menampilkan sisa HTML/JS di AJAX response
+    // Hentikan eksekusi script setelah AJAX response selesai
     exit; 
 }
 ?>

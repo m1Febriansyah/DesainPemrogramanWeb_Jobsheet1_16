@@ -28,4 +28,12 @@ if (preg_match($pattern, $text, $matches)) {
 } else {
     echo "Tidak ada yang cocok.";
 }
+echo "<br>";
+$pattern = '/h?lo/';
+$text = 'hello hi lo';
+if (preg_match_all($pattern, $text, $matches)) {
+    echo "Cocokkan: " . implode(", ", $matches[0]);
+} else {
+    echo "Tidak ada yang cocok.";
+}
 ?>

@@ -2,47 +2,61 @@
 <html lang="id">
 <head>
     <meta charset="UTF-8">
-    <title>Input Aman PHP</title>
+    <title>Validasi Formulir Minimalis</title>
 </head>
 <body>
 
-    <h2>Uji htmlspecialchars()</h2>
+    <h2>Formulir Input Sederhana</h2>
     
     <?php
-    // Inisialisasi variabel
-    $input_aman = "";
-    
-    // LANGKAH PENTING: Periksa apakah ada data yang dikirim melalui metode POST
+    $nama = "";
+    $email = "";
+    $pesan_sukses = "";
+
     if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    
+        if (!empty($_POST["nama"])) {
+          
+            $nama = htmlspecialchars($_POST["nama"], ENT_QUOTES, 'UTF-8');
+        }
+
+        if (!empty($_POST["email"])) {
+            $email_mentah = $_POST['email'];
         
-        // Cek apakah 'input' ada di array $_POST
-        if (isset($_POST['input'])) {
+            if (filter_var($email_mentah, FILTER_VALIDATE_EMAIL)) {
             
-            // 1. Ambil data dari formulir
-            $input_mentah = $_POST['input'];
-            
-            $input_aman = htmlspecialchars($input_mentah, ENT_QUOTES, 'UTF-8');
-            
-            // 3. Tampilkan hasil
-            echo "<h3>Hasil Pembersihan:</h3>";
-            echo "<p>Input yang Anda masukkan: <strong>" . $input_mentah . "</strong></p>";
-            echo "<p>Input yang aman: <strong>" . $input_aman . "</strong></p>";
-            
-            // Contoh untuk menguji XSS: Coba masukkan <script>alert('XSS')</script>
-            
-        } else {
-            // Ini terjadi jika formulir disubmit tanpa adanya input field 'input'
-            echo "<p style='color: orange;'>Peringatan: Variabel 'input' tidak ditemukan dalam data POST.</p>";
+                $email = htmlspecialchars($email_mentah, ENT_QUOTES, 'UTF-8');
+            }
+       
         }
         
+        if (!empty($nama) && !empty($email)) {
+            $pesan_sukses = "<p style='color: green;'> **Data berhasil disimpan!**</p>";
+            
+            echo $pesan_sukses;
+            echo "<p>Nama yang tersimpan: **" . $nama . "**</p>";
+            echo "<p>Email yang tersimpan: **" . $email . "**</p>";
+            
+            $nama = $email = "";
+        } else {
+             echo "<p style='color: orange;'>Perhatian: Pastikan semua field terisi dan format email benar.</p>";
+        }
     }
-
     ?>
+
+    <h3>Formulir Pendaftaran</h3>
     <form method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>">
-        <label for="input_text">Masukkan teks (Coba masukkan tag HTML):</label><br>
-        <input type="text" id="input_text" name="input" size="50" required 
-               placeholder="Contoh: <b>Tebal</b> atau <script>alert(1)</script>"><br><br>
-        <input type="submit" value="Proses Input">
+        
+        <label for="nama">Nama:</label><br>
+        <input type="text" name="nama" id="nama" value="<?php echo htmlspecialchars($nama); ?>" required>
+        <br><br>
+
+        <label for="email">Email:</label><br>
+        <input type="email" name="email" id="email" value="<?php echo htmlspecialchars($email); ?>" required 
+               placeholder="contoh@domain.com">
+        <br><br>
+
+        <input type="submit" name="submit" value="Daftar">
     </form>
 
 </body>

@@ -1,0 +1,36 @@
+<html>
+<head>
+  <title>Login SIAKAD Polinema</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body class="login-body">
+  <div class="login-container">
+    <div class="login-left">    
+    <div class="kotak">
+         <img src="images/Logo-Polinema.png" alt="Logo Polinema" class="logo">
+        <h3 class="judul">LOGIN SIAKAD POLINEMA</h3>
+    </div>
+      <div class="login-form">
+        <p>Masukkan Username dan Password<br>(Menggunakan NIM dan Password)</p>
+        <input type="text" pl  aceholder="Username">
+        <input type="password" id="password" placeholder="Password">
+
+        <div class="checkbox">
+          <input type="checkbox" id="showPass" onclick="togglePassword()">
+            <label for="showPass">Tampilkan Password</label>
+        </div>
+
+        <button onclick="location.href='dashboard.html'" class="button">LOGIN</button>
+      </div>
+    </div>
+    <div class="login-right"></div>
+  </div>
+
+  <script>
+    function togglePassword() {
+      const pass = document.getElementById("password");
+      pass.type = pass.type === "password" ? "text" : "password";
+    }
+  </script>
+</body>
+</html>

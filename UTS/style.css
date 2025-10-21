@@ -1,0 +1,89 @@
+
+body {
+  margin: 0;
+  font-family: "Segoe UI", Arial, sans-serif;
+}
+
+.login-body {
+  background-color: #ffffff;
+}
+.login-container {
+  display: flex;
+  height: 100vh;
+}
+.kotak {
+  display: flex;
+  align-items: center;  
+  gap: 15px;            
+  width: 495px;
+  height: 150px;
+  background-color: #004e98;
+  border: 2px solid #1f4e79;
+  border-radius: 0;
+  margin: 0px;          
+  padding: 10px 55px;
+  position: fixed;          
+  top: 0;                   
+  left: 0;
+}
+.logo {
+  width: 120px;
+  height: auto;
+}
+.judul {
+  color: white;
+  font-size: 26px;
+  font-weight: bold;
+  margin-left: 20px;
+}
+.login-left {
+  width: 40%;
+  background-color: white;
+  padding: 0px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+.login-form {
+  width: 80%;
+  margin: auto;
+}
+.login-form input {
+  width: 100%;
+  padding: 10px;
+  margin-top: 10px;
+  margin-bottom: 20px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+.checkbox {
+  display: flex;
+  align-items: center;  
+  justify-content: flex-start; 
+  gap: 8px;             
+  margin-top: 10px;
+  margin-bottom: 20px;
+}
+.checkbox input {
+  width: auto;
+  margin: 0;
+}
+.button {
+  width: 100px;
+  padding: 10px;
+  background-color: #0047ab;
+  color: white;
+  
+  border-radius: 10px;
+  cursor: pointer;
+  font-size: 16px;
+}
+.button:hover {
+  background-color: #003380;
+}
+.login-right {
+  width: 60%;
+  background: url(images/gedung.webp) no-repeat center center;
+  background-size: cover;
+}
+

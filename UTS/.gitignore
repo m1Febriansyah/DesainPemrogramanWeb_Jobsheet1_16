@@ -1,0 +1,17 @@
+# Abaikan folder dependencies Node.js
+# Ini yang paling penting untuk proyek Anda saat ini
+node_modules/
+
+# Abaikan file environment yang berisi kunci rahasia/API keys
+.env
+
+# Abaikan file log
+*.log
+
+# Abaikan folder hasil build (jika ada)
+/build
+/dist
+
+# Abaikan file sistem operasi
+.DS_Store
+Thumbs.db

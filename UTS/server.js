@@ -1,28 +1,22 @@
-// 1. Impor modul yang dibutuhkan
 const express = require('express');
-const { Pool } = require('pg'); // Modul untuk koneksi ke PostgreSQL
+const { Pool } = require('pg'); 
 const cors = require('cors');
 const bodyParser = require('body-parser');
 
-// 2. Inisialisasi aplikasi express
 const app = express();
-const port = 3000; // Server akan berjalan di port 3000
+const port = 3000; 
 
-// 3. Konfigurasi koneksi ke database PostgreSQL
-// Ganti dengan detail koneksi database Anda!
 const pool = new Pool({
-  user: 'postgres',           // Username pgAdmin/PostgreSQL Anda
+  user: 'postgres',           
   host: 'localhost',
-  database: 'siakad_polinema', // Nama database Anda
-  password: 'brian927.,.,',    // Password database Anda
+  database: 'siakad_polinema', 
+  password: 'brian927.,.,',    
   port: 5432,
 });
 
-// 4. Konfigurasi Middleware
-app.use(cors()); // Mengizinkan request dari domain lain (front-end)
-app.use(bodyParser.json()); // Membaca body request sebagai JSON
+app.use(cors()); 
+app.use(bodyParser.json()); 
 
-// 5. Buat API Endpoint untuk Login
 app.post('/login', async (req, res) => {
   const { username, password } = req.body; // Ambil username & password dari request
 
@@ -32,8 +26,7 @@ app.post('/login', async (req, res) => {
   }
 
   try {
-    // Query ke database untuk mencari user berdasarkan username (NIM)
-    // PENTING: Dalam aplikasi nyata, jangan simpan password sebagai plain text. Gunakan hashing (misal: bcrypt).
+    
     const query = 'SELECT * FROM mahasiswa WHERE nim = $1 AND password = $2';
     const result = await pool.query(query, [username, password]);
 
